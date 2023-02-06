@@ -31,6 +31,7 @@
 		<th>종가</th>
 		<th>거래량</th>
 		<th>거래대금</th>
+		<th>비고</th>
 	</thead>
 	<tbody>
 		<c:forEach var="search" items="${searchViews }">
@@ -43,6 +44,7 @@
 				<td>${search.closingPrice }</td>
 				<td>${search.tradingVolume }</td>
 				<td>${search.transactionAmount }</td>
+				<td><a href="detail?itemCode=${view.itemCode }">세부사항</a></td>
 			</tr>
 		</c:forEach>
 	</tbody>
@@ -57,6 +59,7 @@
 				<td>${view.closingPrice }</td>
 				<td>${view.tradingVolume }</td>
 				<td>${view.transactionAmount }</td>
+				<td><a href="detail?itemCode=${view.itemCode }">세부사항</a></td>
 			</tr>
 		</c:forEach>
 	</tbody>

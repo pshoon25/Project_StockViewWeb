@@ -23,4 +23,9 @@ public class FindAllRepository {
 	public List<FindAllDTO> search(String stockItemName){
 		return sessionTemplate.selectList("Main.search", stockItemName);
 	}
+	
+	// Detail
+	public FindAllDTO detail(String itemCode) {
+		return sessionTemplate.selectOne("Main.detail", itemCode);
+	}
 }

@@ -21,4 +21,8 @@ public class FindAllService {
 	public List<FindAllDTO> search(String stockItemName){
 		return findAllRepository.search(stockItemName);
 	}
+	
+	public FindAllDTO detail(String itemCode) {
+		return findAllRepository.detail(itemCode);
+	}
 }

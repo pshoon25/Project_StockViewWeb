@@ -17,6 +17,14 @@
 		LIMIT 20
 		]]>
 	</select>
+	
+	<select id="detail" parameterType="FindAllDTO" resultType="FindAllDTO">
+		<![CDATA[
+		SELECT * FROM allstockprices
+		WHERE itemCode=#{itemCode}
+		LIMIT 1
+		]]>
+	</select>
 </mapper>
 
 

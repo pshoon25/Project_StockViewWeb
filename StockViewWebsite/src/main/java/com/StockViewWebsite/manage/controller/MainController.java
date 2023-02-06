@@ -23,6 +23,8 @@ public class MainController {
 	@Autowired
 	private FindAllService findAllService;
 	
+	
+	// View (비회원) 
 	@RequestMapping(value="/home", method=RequestMethod.GET )
 	public ModelAndView findAll(
 			@ModelAttribute FindAllDTO dto
@@ -34,6 +36,7 @@ public class MainController {
 		return mav;
 	}
 	
+	// Searching
 	@RequestMapping(value="/home", method=RequestMethod.POST)
 	public ModelAndView search(
 			@RequestParam("stockItemName") String stockItemName,
@@ -45,6 +48,19 @@ public class MainController {
 		mav.setViewName("/home");
 		mav.addObject("searchViews", searchViews);
 //		logger.info(searchViews.toString());
+		return mav;
+	}
+	
+	// 상세보기  
+	@RequestMapping(value="/detail", method=RequestMethod.GET)
+	public ModelAndView detail(
+			@RequestParam("itemCode") String itemCode,
+			@ModelAttribute FindAllDTO dto
+			) {
+		FindAllDTO detailView = findAllService.detail(itemCode);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/detail");
+		mav.addObject("detailView", detailView);
 		return mav;
 	}
 }
