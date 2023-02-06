@@ -8,6 +8,15 @@
 		LIMIT 20
 		]]>
 	</select>
+	
+	<select id="search" parameterType="FindAllDTO" resultType="FindAllDTO">
+		<![CDATA[
+		SELECT * FROM allstockprices
+		WHERE stockItemName	like #{stockItemName}
+		ORDER BY fluctuationRate DESC
+		LIMIT 20
+		]]>
+	</select>
 </mapper>
 
 

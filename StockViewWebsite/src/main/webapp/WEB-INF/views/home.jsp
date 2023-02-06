@@ -1,9 +1,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
 <head>
 	<title>StockViewWeb</title>
-	<meta charset="EUC-KR">
+	<meta charset="UTF-8">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css">
 </head>
 <body>
@@ -11,24 +11,41 @@
 	StockViewWeb
 </h1>
 
-<!-- °Ë»öÃ¢  -->
-<input type="" 
+<!-- ê²€ìƒ‰ì°½  -->
+<form method="post">
+	<table>
+		<tr>
+			<td><input name="stockItemName" placeholder="ê²€ìƒ‰ ì¢…ëª©ëª…ì„ ì…ë ¥í•˜ì„¸ìš”."></td>
+			<td><input type="submit" value="ê²€ìƒ‰"></td>
+		</tr>
+	</table>
+</form>
 
-
-
-
-<!-- ÁÖ½Ä Á¶È¸  -->
 <table>
 	<thead>
-		<th>Á¾¸ñÄÚµå</th>
-		<th>Á¾¸ñ¸í</th>
-		<th>½ÃÀå±¸ºĞ</th>
-		<th>µî¶ô·ü</th>
-		<th>½Ã°¡</th>
-		<th>Á¾°¡</th>
-		<th>°Å·¡·®</th>
-		<th>°Å·¡´ë±İ</th>
+		<th>ì¢…ëª©ì½”ë“œ</th>
+		<th>ì¢…ëª©ëª…</th>
+		<th>ì‹œì¥êµ¬ë¶„</th>
+		<th>ë“±ë½ë¥ </th>
+		<th>ì‹œê°€</th>
+		<th>ì¢…ê°€</th>
+		<th>ê±°ë˜ëŸ‰</th>
+		<th>ê±°ë˜ëŒ€ê¸ˆ</th>
 	</thead>
+	<tbody>
+		<c:forEach var="search" items="${searchViews }">
+			<tr>
+				<td>${search.itemCode }</td>
+				<td>${search.stockItemName }</td>
+				<td>${search.marketSegmentation }</td>
+				<td>${search.fluctuationRate }</td>
+				<td>${search.openPrice }</td>
+				<td>${search.closingPrice }</td>
+				<td>${search.tradingVolume }</td>
+				<td>${search.transactionAmount }</td>
+			</tr>
+		</c:forEach>
+	</tbody>
 	<tbody>
 		<c:forEach var="view" items="${allViews }">
 			<tr>
@@ -44,7 +61,5 @@
 		</c:forEach>
 	</tbody>
 </table>
-
-
 </body>
 </html>

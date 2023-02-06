@@ -14,8 +14,13 @@ public class FindAllRepository {
 	@Autowired
 	private SqlSessionTemplate sessionTemplate;
 	
+	// 비회원 - top20 조회
 	public List<FindAllDTO> findAll() {
 		return sessionTemplate.selectList("Main.findAll");
 	}
-
+	
+	// 검색값 조회 		
+	public List<FindAllDTO> search(String stockItemName){
+		return sessionTemplate.selectList("Main.search", stockItemName);
+	}
 }
