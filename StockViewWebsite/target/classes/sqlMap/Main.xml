@@ -25,6 +25,13 @@
 		LIMIT 1
 		]]>
 	</select>
+	
+	<insert id="signup" parameterType="SignUpDTO">
+		<![CDATA[
+		INSERT INTO Member(memberId, memberPw, memberName, memberBirth)
+		VALUES(#{memberId}, #{memberPw}, #{memberName}, #{memberBirth})
+		]]>
+	</insert>
 </mapper>
 
 

@@ -3,5 +3,6 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.StockViewWebsite.manage.dto.FindAllDTO" alias="FindAllDTO"/>
+		<typeAlias type="com.StockViewWebsite.manage.dto.SignUpDTO" alias="SignUpDTO"/>
 	</typeAliases>
 </configuration>
