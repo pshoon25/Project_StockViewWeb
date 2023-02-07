@@ -11,6 +11,12 @@ public class SignUpDTO {
 	
 	public SignUpDTO() {}
 	
+	public SignUpDTO(String memberId, String memberPw) {
+		super();
+		this.memberId = memberId;
+		this.memberPw = memberPw;
+	}
+
 	public SignUpDTO(String memberId, String memberPw, String memberName, Integer memberBirth) {
 		super();
 		this.memberId = memberId;

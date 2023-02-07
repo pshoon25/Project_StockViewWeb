@@ -1,9 +1,13 @@
 package com.StockViewWebsite.manage.controller;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,10 +40,12 @@ public class MainController {
 	// View (비회원) 
 	@RequestMapping(value="/home", method=RequestMethod.GET )
 	public ModelAndView findAll(
-			@ModelAttribute FindAllDTO dto
+			@ModelAttribute FindAllDTO dto,
+			HttpServletRequest req
 			) {
 		List<FindAllDTO> allViews = findAllService.findAll();
 		ModelAndView mav = new ModelAndView();
+		String memberName = (String) req.getSession().getAttribute("memberName");
 		mav.setViewName("/home");
 		mav.addObject("allViews", allViews);
 		return mav;
@@ -75,8 +81,31 @@ public class MainController {
 	
 	// 로그인창
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login() {
+	public String loginView() {
 		return "/login";
+	}
+	
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public ModelAndView login(
+			@RequestParam("memberId") String memberId,
+			@RequestParam("memberPw") String memberPw,
+			HttpServletRequest req
+			) {
+		SignUpDTO dto = new SignUpDTO(memberId, memberPw);
+		logger.info(dto.toString());
+		ModelAndView mav = new ModelAndView();
+		try {
+			SignUpDTO dto2 = signUpService.login(dto);
+			logger.info(dto2.toString());
+			mav.setViewName("redirect:/home");
+			HttpSession session = req.getSession();
+			session.setAttribute("memberId", dto2.getMemberId());
+			session.setAttribute("memberName", dto2.getMemberName());
+			session.setMaxInactiveInterval(10);
+		} catch (NullPointerException e) {
+			mav.setViewName("redirect:/login");
+		}
+		return mav;
 	}
 	
 	// 회원가입  
@@ -97,14 +126,17 @@ public class MainController {
 			@RequestParam("memberPw") String memberPw,
 			@RequestParam("memberName") String memberName,
 			@RequestParam("memberBirth") Integer memberBirth,
-			@RequestParam("stockItemName") String stockItemName
+			@RequestParam("stockItemName") List<String> stockItemName
 			) {
 		SignUpDTO dto = new SignUpDTO(memberId, memberPw, memberName, memberBirth);
-		ItemOfInterestDTO dto2 = new ItemOfInterestDTO(memberId, stockItemName);
-		logger.info(dto.toString());
-		logger.info(dto2.toString());
+		
+		List<ItemOfInterestDTO> dto3 = new ArrayList();
+		for (String name : stockItemName) {
+			dto3.add(new ItemOfInterestDTO(memberId, name));
+		}
+		logger.info(dto3.toString());
+		List<Integer> inserRow = signUpService.add(dto3);
 		int insertRow = signUpService.signup(dto);
-		int insertRow2 = signUpService.itemofinterest(dto2);
 		ModelAndView mav = new ModelAndView();
 		if(insertRow != 0) {
 			mav.setViewName("redirect:/login");

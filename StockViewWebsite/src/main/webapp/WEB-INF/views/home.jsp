@@ -7,6 +7,13 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css">
 </head>
 <body>
+
+
+<% if(request.getSession().getAttribute("memberName") != null) {%>
+<h3><%=request.getSession().getAttribute("memberName") %>님 환영합니다.</h3>
+<%} %>
+
+
 <h1>
 	StockViewWeb
 </h1>

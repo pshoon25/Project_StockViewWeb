@@ -18,7 +18,12 @@ public class SignUpRepository {
 	}
 	
 	// 관심 항목 추가	
-	public int itemofinterest(ItemOfInterestDTO dto) {
-		return sessionTemplate.insert("Main.itemofinterest", dto);
+	public int itemofinterest(ItemOfInterestDTO returnList) {
+		return sessionTemplate.insert("Main.itemofinterest", returnList);
+	}
+	
+	// 로그인 
+	public SignUpDTO login(SignUpDTO dto) {
+		return sessionTemplate.selectOne("Main.login", dto);
 	}
 }

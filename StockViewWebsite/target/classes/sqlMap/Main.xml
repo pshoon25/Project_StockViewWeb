@@ -39,6 +39,13 @@
 		VALUES(#{memberId}, #{stockitemName})
 		]]>
 	</insert>
+	
+	<select id="login" parameterType="SignUpDTO" resultType="SignUpDTO">
+		<![CDATA[
+		SELECT memberId, memberPw, memberName FROM Member
+		WHERE memberId = #{memberId} AND memberPw = #{memberPw}
+		]]>
+	</select>
 </mapper>
 
 

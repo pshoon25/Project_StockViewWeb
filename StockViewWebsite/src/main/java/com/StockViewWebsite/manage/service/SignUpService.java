@@ -1,5 +1,8 @@
 package com.StockViewWebsite.manage.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +21,17 @@ public class SignUpService {
 		return signUpRepository.signup(dto);
 	}
 	
-	// 관심항목 추가  
-	public int itemofinterest(ItemOfInterestDTO dto) {
-		return signUpRepository.itemofinterest(dto);
+	// 관심항목 추가
+	public List<Integer> add(List<ItemOfInterestDTO> dto3){
+		List<Integer> returnList = new ArrayList();
+		for (ItemOfInterestDTO dto : dto3) {
+			returnList.add(signUpRepository.itemofinterest(dto));
+		}
+		return returnList;
+	}
+	
+	// 로그인 
+	public SignUpDTO login(SignUpDTO dto) {
+		return signUpRepository.login(dto);
 	}
 }
