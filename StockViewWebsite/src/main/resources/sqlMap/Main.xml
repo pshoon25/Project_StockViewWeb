@@ -32,6 +32,13 @@
 		VALUES(#{memberId}, #{memberPw}, #{memberName}, #{memberBirth})
 		]]>
 	</insert>
+	
+	<insert id="itemofinterest" parameterType="ItemOfInterestDTO">
+		<![CDATA[
+		INSERT INTO ItemOfInterest(memberId, stockitemName)
+		VALUES(#{memberId}, #{stockitemName})
+		]]>
+	</insert>
 </mapper>
 
 

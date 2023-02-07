@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.StockViewWebsite.manage.HomeController;
 import com.StockViewWebsite.manage.dto.FindAllDTO;
+import com.StockViewWebsite.manage.dto.ItemOfInterestDTO;
 import com.StockViewWebsite.manage.dto.SignUpDTO;
 import com.StockViewWebsite.manage.service.FindAllService;
 import com.StockViewWebsite.manage.service.SignUpService;
@@ -80,8 +81,14 @@ public class MainController {
 	
 	// 회원가입  
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
-	public String signup1() {
-		return "/signup";
+	public ModelAndView signupView(
+		@ModelAttribute FindAllDTO dto
+		) {
+		List<FindAllDTO> allViews = findAllService.findAll();
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/signup");
+		mav.addObject("allViews", allViews);
+		return mav;
 	}
 	
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
@@ -89,13 +96,15 @@ public class MainController {
 			@RequestParam("memberId") String memberId,
 			@RequestParam("memberPw") String memberPw,
 			@RequestParam("memberName") String memberName,
-			@RequestParam("memberBirth") Integer memberBirth
+			@RequestParam("memberBirth") Integer memberBirth,
+			@RequestParam("stockItemName") String stockItemName
 			) {
 		SignUpDTO dto = new SignUpDTO(memberId, memberPw, memberName, memberBirth);
+		ItemOfInterestDTO dto2 = new ItemOfInterestDTO(memberId, stockItemName);
 		logger.info(dto.toString());
+		logger.info(dto2.toString());
 		int insertRow = signUpService.signup(dto);
-		
-		
+		int insertRow2 = signUpService.itemofinterest(dto2);
 		ModelAndView mav = new ModelAndView();
 		if(insertRow != 0) {
 			mav.setViewName("redirect:/login");
